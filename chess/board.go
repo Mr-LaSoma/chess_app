@@ -5,8 +5,9 @@ import (
 )
 
 const (
-	baseSquareCX = 8
-	baseSquareCY = 8
+	baseSquareCX  = 8
+	baseSquareCY  = 8
+	baseThemeName = "Modern"
 )
 
 var (
@@ -25,14 +26,19 @@ type board struct {
 // GetChessBoard returns the singleton of the chessboard
 func GetChessBoard() *board {
 	if chessboard == nil {
+		chessboard.SetBasicConfig()
 		chessboard = newChessBoard()
 	}
 	return chessboard
 }
 
+// SetBasicConfig sets reset the configurations of the board
+// (not the positions but the squarescount and theme)
 func (b *board) SetBasicConfig() {
 	b.squareCountX = baseSquareCX
 	b.squareCountY = baseSquareCY
+
+	b.theme = *themes.MustGetBoardTheme(baseThemeName)
 }
 
 // newChessBoard returns the chess board created with the basic config
